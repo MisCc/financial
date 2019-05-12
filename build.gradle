@@ -1,0 +1,44 @@
+group 'com.imooc'
+version '1.0-SNAPSHOT'
+
+/*apply plugin: 'java'
+
+//sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}*/
+apply from: "D:\\codeing\\financial\\dependencies.gradle"
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'war'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        mavenCentral()
+        jcenter()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }  //转换pdf使用
+    }
+
+    dependencies {
+        compile libs.common
+        testCompile libs.test
+        //*********以下为swagger转换 pdf需要************//
+        compile 'io.swagger:swagger-annotations:1.5.6'
+        compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.6.1'
+        compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.6.1'
+    }
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
